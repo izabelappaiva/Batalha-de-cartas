@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalha de Cartas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: #333;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      display: inline-block;
+      width: 200px;
+    }
+    .btn {
+      background: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      margin: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Batalha de Cartas</h1>
+  <div id="cards"></div>
+  <button class="btn" onclick="jogarRodada()">Jogar Rodada</button>
+  <h2 id="resultado"></h2> <script>
+    const deckJogador = [
+      { nome: "Dragão", forca: 9, defesa: 7, magia: 5 },
+      { nome: "Guerreiro", forca: 7, defesa: 8, magia: 4 },
+      { nome: "Mago", forca: 4, defesa: 5, magia: 10 },
+    ];
+
+    const deckComputador = [
+      { nome: "Orc", forca: 8, defesa: 6, magia: 3 },
+      { nome: "Cavaleiro", forca: 6, defesa: 9, magia: 4 },
+      { nome: "Feiticeiro", forca: 5, defesa: 4, magia: 9 },
+    ];
+
+    function sortearCarta(deck) {
+      return deck[Math.floor(Math.random() * deck.length)];
+    }
+
+    function jogarRodada() {
+      const cartaJogador = sortearCarta(deckJogador);
+      const cartaComputador = sortearCarta(deckComputador);
+
+      const atributos = ["forca", "defesa", "magia"];
+      const atributoSorteado = atributos[Math.floor(Math.random() * atributos.length)];
+
+      const valorJogador = cartaJogador[atributoSorteado];
+      const valorComputador = cartaComputador[atributoSorteado];
+
+      let resultado = "";
+      if (valorJogador > valorComputador) {
+        resultado = `Você venceu! (${cartaJogador.nome} - ${atributoSorteado}: ${valorJogador} vs ${cartaComputador.nome} - ${valorComputador})`;
+      } else if (valorJogador < valorComputador) {
+        resultado = `Você perdeu! (${cartaJogador.nome} - ${atributoSorteado}: ${valorJogador} vs ${cartaComputador.nome} - ${valorComputador})`;
+      } else {
+        resultado = `Empate! (${cartaJogador.nome} - ${atributoSorteado}: ${valorJogador} vs ${cartaComputador.nome} - ${valorComputador})`;
+      }
+
+      document.getElementById("resultado").textContent = resultado;
+    }
+  </script></body>
+</html>
